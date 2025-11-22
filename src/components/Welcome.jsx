@@ -14,13 +14,13 @@ const renderText = (text, className, baseWeight = 400) => {
       className={className}
       style={{ fontVariationSettings: `'wght' ${baseWeight}` }}
     >
-      {char == " " ? "\u00A0" : char}
+      {char === " " ? "\u00A0" : char}
     </span>
   ));
 };
 
 const setupTextHover = (container, type) => {
-  if (!container) return;
+  if (!container) return () => {};
   const letters = container.querySelectorAll("span");
   const { min, max, default: base } = FONT_WEIGHTS[type];
 
@@ -61,11 +61,11 @@ const Welcome = () => {
 
   useGSAP(() => {
     const titleCleanup = setupTextHover(titleRef.current, "title");
-    const subtitleClenup = setupTextHover(subtitleRef.current, "subtitle");
+    const subtitleCleanup = setupTextHover(subtitleRef.current, "subtitle");
 
     return () => {
       titleCleanup();
-      subtitleClenup();
+      subtitleCleanup();
     };
   }, []);
   return (
@@ -85,7 +85,7 @@ const Welcome = () => {
         )}
       </h1>
       <div className="small-screen">
-        <p>This Portfolio is designed for desktop/tabled screens only.</p>
+        <p>This Portfolio is designed for desktop/tablet screens only.</p>
       </div>
     </section>
   );
