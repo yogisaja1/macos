@@ -1,8 +1,16 @@
 import { navIcons, navLinks } from "#constants";
 import dayjs from "dayjs";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [currentTime, setCurrentTime] = useState(dayjs());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(dayjs());
+    }, 1000); // update every second
+    return () => clearInterval(interval); // cleanup on unmount
+  }, []);
   return (
     <nav>
       <div>
@@ -22,7 +30,7 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <time>{dayjs().format("ddd MMM D h:mm A")}</time>
+        <time>{currentTime.format("ddd MMM D h:mm A")}</time>
       </div>
     </nav>
   );
