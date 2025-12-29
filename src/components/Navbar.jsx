@@ -1,8 +1,10 @@
 import { navIcons, navLinks } from "#constants";
+import useWindowStore from "#store/window";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const { openWindow } = useWindowStore();
   const [currentTime, setCurrentTime] = useState(dayjs());
 
   useEffect(() => {
@@ -17,8 +19,12 @@ const Navbar = () => {
         <img src="/images/logo.svg" alt="" />
         <p className="font-bold">Yogi's Portfolio</p>
         <ul>
-          {navLinks.map(({ id, name }) => {
-            return <li key={id}>{name}</li>;
+          {navLinks.map(({ id, name, type }) => {
+            return (
+              <li key={id} onClick={() => openWindow(type)}>
+                <p>{name}</p>
+              </li>
+            );
           })}
         </ul>
       </div>
